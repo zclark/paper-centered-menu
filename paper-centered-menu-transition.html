@@ -29,9 +29,6 @@
 
           var size = node.getBoundingClientRect();
 
-          console.log(node);
-          console.log(size);
-
           var initialTop = Math.floor((node.maxItems - 1) / 2) * node.itemSize + 8;
           var bg = node.querySelector('.paper-centered-menu-overlay-bg');
           anims.push(new Animation(bg, [{
@@ -54,6 +51,8 @@
           var selected = menu.selected;
           var items = menu.items;
           var length = items.length;
+
+          this.updateScroll(node, selected);
 
           var itemDuration = 1000;
           var extraRendered = Math.ceil(node.maxItems / 2);
@@ -84,6 +83,13 @@
             this.fire('core-transitionend', this, node);
           }.bind(this));
         }
+      },
+
+
+      updateScroll: function (node, index) {
+        var container = node.querySelector('.menu-container');
+        var scrollTop = Math.max((index - 1) * node.itemSize, 0);
+        container.scrollTop = scrollTop;
       },
 
 
