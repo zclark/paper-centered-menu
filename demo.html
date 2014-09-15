@@ -28,6 +28,12 @@ license that can be found in the LICENSE file.
       top: 150px;
       left: 150px;
     }
+
+    #bigSelector {
+      position: absolute;
+      top: 150px;
+      left: 250px;
+    }
   </style>
 </head>
 
@@ -95,7 +101,20 @@ license that can be found in the LICENSE file.
     <paper-item label="WV"></paper-item>
     <paper-item label="WI"></paper-item>
     <paper-item label="WY"></paper-item>
-  </paper-menu-button>
+  </paper-centered-menu>
+
+  <paper-centered-menu selected="1" id="bigSelector">
+    <paper-item label="Big words"></paper-item>
+    <paper-item label="go in here"></paper-item>
+    <paper-item label="but it should still"></paper-item>
+    <paper-item label="look good"></paper-item>
+    <paper-item label="testing things"></paper-item>
+    <paper-item label="oversized item - with dashes"></paper-item>
+    <paper-item label="moar"></paper-item>
+    <paper-item label="AZ"></paper-item>
+    <paper-item label="January"></paper-item>
+    <paper-item label="10"></paper-item>
+  </paper-centered-menu>
 
 </body>
 </html>
