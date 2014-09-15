@@ -19,7 +19,7 @@
       <div relative>
 
         <div layout horizontal center class="displayContainer">
-          <div flex>{{selected}}</div>
+          <div flex>{{selectedItem.label}}</div>
           <core-icon icon="{{$.overlay.opened ? 'arrow-drop-up' : 'arrow-drop-down'}}"></core-icon>
         </div>
 
@@ -49,7 +49,7 @@
     Polymer({
 
       publish: {
-        opened: true,
+        opened: false,
         selected: 0,
         selectedItem: null
       },
@@ -70,11 +70,17 @@
       },
 
       toggleDropdown: function () {
-        this.$.overlay.opened = !this.$.overlay.opened;
+        this.opened = !this.opened;
       },
 
       rippleEnd: function () {
         this.tap();
+      },
+
+      selectAction: function () {
+        if (this.opened) {
+          this.opened = false;
+        }
       }
 
     });

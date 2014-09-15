@@ -23,59 +23,79 @@ license that can be found in the LICENSE file.
       background: #f7f7f7;
     }
 
-    .card {
-      background: #fff;
-      width: 320px;
-      height: 480px;
-      margin: 128px 96px;
-      border-radius: 3px;
-    }
-
-    .toolbar {
-      background: #91a7ff;
-      position: relative;
-      padding: 0.5em;
-      border-radius: 3px 3px 0 0;
-    }
-
-    .inner {
+    #stateSelector {
       position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      z-index: -1;
-    }
-
-    .container {
-      padding-top: 4.5em;
-      padding-left: 4em;
+      top: 150px;
+      left: 150px;
     }
   </style>
 </head>
+
 <body unresolved>
 
   <paper-shadow></paper-shadow>
 
-  <div class="card paper-shadow-top-z-1">
-    <div class="inner paper-shadow-bottom-z-1"></div>
-    <div layout horizontal class="toolbar paper-shadow-top-z-1">
-    </div>
-    <div class="container">
-      <paper-centered-menu>
-        <paper-item label="-10"></paper-item>
-        <paper-item label="0"></paper-item>
-        <paper-item label="10"></paper-item>
-        <paper-item label="20"></paper-item>
-        <paper-item label="30"></paper-item>
-        <paper-item label="40"></paper-item>
-        <paper-item label="50"></paper-item>
-        <paper-item label="60"></paper-item>
-        <paper-item label="70"></paper-item>
-        <paper-item label="80"></paper-item>
-      </paper-menu-button>
-    </div>
-  </div>
+  <paper-centered-menu selected="1" id="stateSelector">
+    <paper-item label="AL"></paper-item>
+    <paper-item label="AK"></paper-item>
+    <paper-item label="AS"></paper-item>
+    <paper-item label="AZ"></paper-item>
+    <paper-item label="AR"></paper-item>
+    <paper-item label="CA"></paper-item>
+    <paper-item label="CO"></paper-item>
+    <paper-item label="CT"></paper-item>
+    <paper-item label="DE"></paper-item>
+    <paper-item label="DC"></paper-item>
+    <paper-item label="FM"></paper-item>
+    <paper-item label="FL"></paper-item>
+    <paper-item label="GA"></paper-item>
+    <paper-item label="GU"></paper-item>
+    <paper-item label="HI"></paper-item>
+    <paper-item label="ID"></paper-item>
+    <paper-item label="IL"></paper-item>
+    <paper-item label="IN"></paper-item>
+    <paper-item label="IA"></paper-item>
+    <paper-item label="KS"></paper-item>
+    <paper-item label="KY"></paper-item>
+    <paper-item label="LA"></paper-item>
+    <paper-item label="ME"></paper-item>
+    <paper-item label="MH"></paper-item>
+    <paper-item label="MD"></paper-item>
+    <paper-item label="MA"></paper-item>
+    <paper-item label="MI"></paper-item>
+    <paper-item label="MN"></paper-item>
+    <paper-item label="MS"></paper-item>
+    <paper-item label="MO"></paper-item>
+    <paper-item label="MT"></paper-item>
+    <paper-item label="NE"></paper-item>
+    <paper-item label="NV"></paper-item>
+    <paper-item label="NH"></paper-item>
+    <paper-item label="NJ"></paper-item>
+    <paper-item label="NM"></paper-item>
+    <paper-item label="NY"></paper-item>
+    <paper-item label="NC"></paper-item>
+    <paper-item label="ND"></paper-item>
+    <paper-item label="MP"></paper-item>
+    <paper-item label="OH"></paper-item>
+    <paper-item label="OK"></paper-item>
+    <paper-item label="OR"></paper-item>
+    <paper-item label="PW"></paper-item>
+    <paper-item label="PA"></paper-item>
+    <paper-item label="PR"></paper-item>
+    <paper-item label="RI"></paper-item>
+    <paper-item label="SC"></paper-item>
+    <paper-item label="SD"></paper-item>
+    <paper-item label="TN"></paper-item>
+    <paper-item label="TX"></paper-item>
+    <paper-item label="UT"></paper-item>
+    <paper-item label="VT"></paper-item>
+    <paper-item label="VI"></paper-item>
+    <paper-item label="VA"></paper-item>
+    <paper-item label="WA"></paper-item>
+    <paper-item label="WV"></paper-item>
+    <paper-item label="WI"></paper-item>
+    <paper-item label="WY"></paper-item>
+  </paper-menu-button>
 
 </body>
 </html>
