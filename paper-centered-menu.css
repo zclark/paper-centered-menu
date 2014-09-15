@@ -1,0 +1,78 @@
+:host {
+  display: inline-block;
+  position: relative;
+  overflow: visible;
+  background-color: #fff;
+  font-weight: 300;
+}
+
+#overlay {
+  position: absolute;
+  overflow: auto;
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+#display {
+  font-size: 16px;
+  height: 48px;
+  padding-left: 16px;
+}
+.displayContainer {
+  padding-top: 1px;
+  min-width: 60px;
+}
+
+#ripple {
+  cursor: pointer;
+}
+
+.menu-container {
+  overflow: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#menu {
+  padding: 8px 0 8px 0;
+  margin: 0;
+  display: block;
+}
+
+::content paper-item {
+  min-width: 112px;
+  justify-content: center;
+}
+
+#underline {
+  height: 1px;
+  background: #757575;
+  border-bottom-color: #757575;
+}
+#focusedUnderline {
+  height: 2px;
+}
+#focusedUnderline[invisible] {
+  visibility: hidden;
+}
+:host(:focus) #focusedUnderline {
+  visibility: visible;
+}
+#focusedUnderline[opened] {
+  visibility: visible;
+}
+
+#overlay {
+  background-color: transparent;
+}
+
+.paper-centered-menu-overlay-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 3px;
+  opacity: 0;
+  background-color: hsl(0, 20%, 70%);
+}

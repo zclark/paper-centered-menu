@@ -1,0 +1,81 @@
+<!doctype html>
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>paper-centered-menu</title>
+  <script src="../platform/platform.js"></script>
+  <link href="../paper-item/paper-item.html" rel="import">
+  <link href="../paper-shadow/paper-shadow.html" rel="import">
+  <link href="../font-roboto/roboto.html" rel="import">
+  <link href="paper-centered-menu.html" rel="import">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'Roboto-Draft', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      background: #f7f7f7;
+    }
+
+    .card {
+      background: #fff;
+      width: 320px;
+      height: 480px;
+      margin: 128px 96px;
+      border-radius: 3px;
+    }
+
+    .toolbar {
+      background: #91a7ff;
+      position: relative;
+      padding: 0.5em;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    .container {
+      padding-top: 4.5em;
+      padding-left: 4em;
+    }
+  </style>
+</head>
+<body unresolved>
+
+  <paper-shadow></paper-shadow>
+
+  <div class="card paper-shadow-top-z-1">
+    <div class="inner paper-shadow-bottom-z-1"></div>
+    <div layout horizontal class="toolbar paper-shadow-top-z-1">
+    </div>
+    <div class="container">
+      <paper-centered-menu>
+        <paper-item label="-10"></paper-item>
+        <paper-item label="0"></paper-item>
+        <paper-item label="10"></paper-item>
+        <paper-item label="20"></paper-item>
+        <paper-item label="30"></paper-item>
+        <paper-item label="40"></paper-item>
+        <paper-item label="50"></paper-item>
+        <paper-item label="60"></paper-item>
+        <paper-item label="70"></paper-item>
+        <paper-item label="80"></paper-item>
+      </paper-menu-button>
+    </div>
+  </div>
+
+</body>
+</html>

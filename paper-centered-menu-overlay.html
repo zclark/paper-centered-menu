@@ -1,0 +1,92 @@
+<link href="../polymer/polymer.html" rel="import">
+
+<link href="../core-overlay/core-overlay.html" rel="import">
+<link href="paper-centered-menu-transition.html" rel="import">
+
+<polymer-element name="paper-centered-menu-overlay" extends="core-overlay">
+  <script>
+    Polymer({
+
+      publish: {
+        relatedTarget: null,
+        itemSize: 48,
+        maxItems: 4,
+        transition: 'paper-centered-menu-transition'
+      },
+
+
+      updateTargetDimensions: function() {
+        this.measureTarget();
+        this.super();
+      },
+
+      measureTarget: function() {
+        var sizer = this.sizingTarget || this.target;
+
+        /* position offscreen if we're auto-positioning to get the natural width and height of the dropdown */
+        sizer.style.position = 'absolute';
+        sizer.style.left = '-99999px';
+        sizer.style.top = '-99999px';
+
+        var rect = sizer.getBoundingClientRect();
+
+        this._naturalSize = {
+          width: rect.width,
+          height: rect.height
+        };
+
+        sizer.style.position = this.targetStyle.position;
+        sizer.style.left = null;
+        sizer.style.top = null;
+      },
+
+
+
+      positionTarget: function () {
+
+        if (!this.relatedTarget) {
+          this.super();
+          return;
+        }
+
+
+        var t_op = this.target.offsetParent;
+        var r_op = this.relatedTarget.offsetParent;
+        if (window.ShadowDOMPolyfill) {
+          t_op = wrap(t_op);
+          r_op = wrap(r_op);
+        }
+
+        if (t_op !== r_op && t_op !== this.relatedTarget) {
+          console.warn('core-dropdown-overlay: dropdown\'s offsetParent must be the relatedTarget or the relatedTarget\'s offsetParent!');
+        }
+
+
+        var inside = t_op === this.relatedTarget;
+        var ref = this.relatedTarget.getBoundingClientRect();
+
+
+        var top = 0;
+        top -= Math.floor((this.maxItems - 1) / 2) * this.itemSize;
+        top -= 8; // padding
+
+        var left = -35.5;//ref.left;
+
+        var t_style = this.target.style;
+        t_style.top = top + 'px';
+        t_style.left = left + 'px';
+      },
+
+
+      sizeTarget: function () {
+        var sizer = this.sizingTarget || this.target;
+
+        sizer.style.width = this._naturalSize.width + 'px';
+        sizer.style.height = (this.itemSize * this.maxItems + 8) + 'px';
+
+        this.super();
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,105 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../core-transition/core-transition-css.html" rel="import">
+<link href="../core-animation/web-animations.html" rel="import">
+
+<polymer-element name="paper-centered-menu-transition" extends="core-transition-css" attributes="duration transformOrigin">
+  <template>
+    <link no-shim href="paper-centered-menu-transition.css" rel="stylesheet">
+  </template>
+  <script>
+    Polymer({
+
+      baseClass: 'paper-centered-menu-transition',
+      revealedClass: 'paper-centered-menu-revealed',
+      openedClass: 'paper-centered-menu-opened',
+      closedClass: 'paper-centered-menu-closed',
+      completeEventName: null,
+
+      duration: 500,
+
+      transitionOpened: function(node, opened) {
+        this.super(arguments);
+
+        if (opened) {
+          if (this.player) {
+            this.player.cancel();
+          }
+
+          var anims = [];
+
+          var size = node.getBoundingClientRect();
+
+          console.log(node);
+          console.log(size);
+
+          var initialTop = Math.floor((node.maxItems - 1) / 2) * node.itemSize + 8;
+          var bg = node.querySelector('.paper-centered-menu-overlay-bg');
+          anims.push(new Animation(bg, [{
+            'opacity': 0.9,
+            'top': initialTop + 'px',
+            'height': node.itemSize + 'px',
+            'left': -(node.offsetLeft) + 'px'
+          }, {
+            'opacity': 1.0,
+            'top': 0,
+            'height': size.height + 'px',
+            'left': 0
+          }], {
+            duration: this.duration,
+            fill: 'forwards'
+          }));
+
+
+          var menu = node.querySelector('#menu');
+          var selected = menu.selected;
+          var items = menu.items;
+          var length = items.length;
+
+          var itemDuration = 1000;
+          var extraRendered = Math.ceil(node.maxItems / 2);
+          var itemDelay = 1 / extraRendered;
+
+          for (var i = 1; i <= extraRendered; i += 1) {
+            if (selected - i >= 0) {
+              anims.push(this.createItemAnimation(items[selected - i],
+                this.duration, itemDelay * i * this.duration));
+            }
+            if (selected + i < length - 1) {
+              anims.push(this.createItemAnimation(items[selected + i],
+                this.duration, itemDelay * i * this.duration));
+            }
+          }
+
+
+          var group = new AnimationGroup(anims, {
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+          });
+          this.player = document.timeline.play(group);
+          this.player.onfinish = function() {
+            this.fire('core-transitionend', this, node);
+          }.bind(this);
+
+        } else {
+          this.listenOnce(node, 'transitionend', function() {
+            this.fire('core-transitionend', this, node);
+          }.bind(this));
+        }
+      },
+
+
+      createItemAnimation: function (item, duration, delay) {
+        return new Animation(item, [{
+          opacity: 0
+        }, {
+          opacity: 1
+        }], {
+          delay: delay,
+          duration: duration,
+          fill: 'both'
+        });
+      }
+    });
+  </script>
+</polymer-element>
+
+<paper-centered-menu-transition id="paper-centered-menu-transition"></paper-centered-menu-transition>

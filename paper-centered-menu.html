@@ -1,0 +1,82 @@
+<link href="../polymer/polymer.html" rel="import">
+
+<link href="../core-icon/core-icon.html" rel="import">
+<link href="../core-icons/core-icons.html" rel="import">
+<link href="../core-style/core-style.html" rel="import">
+<link href="../core-menu/core-menu.html" rel="import">
+
+<link href="../paper-focusable/paper-focusable.html" rel="import">
+<link href="../paper-shadow/paper-shadow.html" rel="import">
+<link href="../paper-ripple/paper-ripple.html" rel="import">
+
+<link href="paper-centered-menu-overlay.html" rel="import">
+
+<polymer-element name="paper-centered-menu">
+  <template>
+    <link href="paper-centered-menu.css" rel="stylesheet">
+
+    <div id="display" layout horizontal center>
+      <div relative>
+
+        <div layout horizontal center class="displayContainer">
+          <div flex>{{selected}}</div>
+          <core-icon icon="{{$.overlay.opened ? 'arrow-drop-up' : 'arrow-drop-down'}}"></core-icon>
+        </div>
+
+        <div id="underline" class="underline" relative>
+          <div class="unfocused-underline" fit></div>
+          <div id="focusedUnderline" class="focused-underline" opened?="{{opened}}" fit invisible></div>
+        </div>
+
+        <paper-ripple id="ripple" fit on-core-transitionend="{{rippleEnd}}"></paper-ripple>
+      </div>
+    </div>
+
+    <paper-centered-menu-overlay relatedTarget="{{$.display}}" id="overlay" opened="{{opened}}" on-core-transitionend="{{transitionEndAction}}">
+
+      <paper-shadow id="shadow" z="0" target="{{$.overlay}}"></paper-shadow>
+
+      <div id="overlayBg" class="paper-centered-menu-overlay-bg"></div>
+
+      <div class="menu-container">
+        <core-menu id="menu" on-core-select="{{selectAction}}" selected="{{selected}}" selectedItem="{{selectedItem}}">
+          <content></content>
+        </core-menu>
+      </div>
+    </paper-centered-menu-overlay>
+  </template>
+  <script>
+    Polymer({
+
+      publish: {
+        opened: true,
+        selected: 0,
+        selectedItem: null
+      },
+
+      tap: function () {
+        if (this.disabled) {
+          return;
+        }
+
+        this.toggleDropdown();
+        if (this.$.overlay.opened) {
+          this.$.shadow.z = 0;
+        }
+      },
+
+      transitionEndAction: function () {
+        this.$.shadow.z = 1;
+      },
+
+      toggleDropdown: function () {
+        this.$.overlay.opened = !this.$.overlay.opened;
+      },
+
+      rippleEnd: function () {
+        this.tap();
+      }
+
+    });
+  </script>
+</polymer-element>

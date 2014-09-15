@@ -1,0 +1,28 @@
+{
+  "name": "paper-centered-menu",
+  "version": "0.0.1",
+  "authors": [
+    "zclark <zachmclark@gmail.com>"
+  ],
+  "description": "A paper menu that centers on the currently selected item when opened",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "font-roboto": "Polymer/font-roboto#master",
+    "core-component-page": "Polymer/core-component-page#master",
+    "core-icon": "Polymer/core-icon#master",
+    "core-menu": "Polymer/core-menu#master",
+    "core-overlay": "Polymer/core-overlay#master",
+    "core-style": "Polymer/core-style#master",
+    "paper-focusable": "Polymer/paper-focusable#master",
+    "paper-item": "Polymer/paper-item#master",
+    "paper-shadow": "Polymer/paper-shadow#master",
+    "core-transition": "Polymer/core-transition#master",
+    "core-animation": "Polymer/core-animation#master"
+  }
+}
