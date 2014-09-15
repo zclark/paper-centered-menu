@@ -70,7 +70,11 @@
         top -= Math.floor((this.maxItems - 1) / 2) * this.itemSize;
         top -= 8; // padding
 
-        var left = -30;//ref.left;
+
+        var innerWidth = this.offsetWidth - 16 * 2;
+        var left = - innerWidth / 2;
+        var label = this.relatedTarget.querySelector('#label');
+        left += label.offsetWidth / 2;
 
         var t_style = this.target.style;
         t_style.top = top + 'px';

@@ -3,6 +3,7 @@
   position: relative;
   overflow: visible;
   font-weight: 300;
+  outline: none;
 }
 
 #overlay {
@@ -50,6 +51,10 @@
 }
 #focusedUnderline {
   height: 2px;
+  background-color: blue;
+}
+:host(:focus) {
+  outline: none;
 }
 #focusedUnderline[invisible] {
   visibility: hidden;
@@ -60,6 +65,7 @@
 #focusedUnderline[opened] {
   visibility: visible;
 }
+
 
 #overlay {
   background-color: transparent;

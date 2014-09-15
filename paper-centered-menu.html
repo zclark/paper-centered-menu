@@ -11,7 +11,7 @@
 
 <link href="paper-centered-menu-overlay.html" rel="import">
 
-<polymer-element name="paper-centered-menu">
+<polymer-element name="paper-centered-menu" extends="paper-focusable">
   <template>
     <link href="paper-centered-menu.css" rel="stylesheet">
 
@@ -19,7 +19,7 @@
       <div relative>
 
         <div layout horizontal center class="displayContainer">
-          <div flex>{{selectedItem.label}}</div>
+          <div flex><span id="label">{{selectedItem.label}}</span></div>
           <core-icon icon="{{$.overlay.opened ? 'arrow-drop-up' : 'arrow-drop-down'}}"></core-icon>
         </div>
 
@@ -82,7 +82,6 @@
           this.opened = false;
         }
       }
-
     });
   </script>
 </polymer-element>
