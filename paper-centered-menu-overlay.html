@@ -40,6 +40,7 @@
       },
 
 
+      countAbove: 0,
 
       positionTarget: function () {
         if (!this.relatedTarget) {
@@ -59,6 +60,9 @@
 
         var selected = menu.selected;
         var countAbove = Math.min(selected, maxAdditional, overflowAbove || 1);
+        // Assign in here so the transition can access w/o more calc
+        this.countAbove = countAbove;
+
         var top = -(countAbove * this.itemSize + 8);
 
         var innerWidth = this.offsetWidth - 16 * 2;
@@ -69,11 +73,6 @@
         var targetStyle = this.target.style;
         targetStyle.top = top + 'px';
         targetStyle.left = left + 'px';
-
-
-        var container = this.querySelector('.menu-container');
-        var scrollTop = Math.max((selected - countAbove) * this.itemSize, 0);
-        container.scrollTop = scrollTop;
       },
 
 

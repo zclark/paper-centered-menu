@@ -78,6 +78,11 @@
             this.fire('core-transitionend', this, node);
           }.bind(this);
 
+
+          var container = node.querySelector('.menu-container');
+          var scrollTop = Math.max((menu.selected - node.countAbove) * node.itemSize, 0);
+          container.scrollTop = scrollTop;
+
         } else {
           this.listenOnce(node, 'transitionend', function() {
             this.fire('core-transitionend', this, node);
