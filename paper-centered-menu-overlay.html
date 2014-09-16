@@ -65,6 +65,19 @@
 
         var top = -(countAbove * this.itemSize + 8);
 
+
+        // update top in the case that we have selected near the end of the menu
+        if (selected >= itemCount - maxAdditional) {
+          var distanceFromEnd = itemCount - (selected + 1);
+          var moveUp = maxAdditional - distanceFromEnd;
+          top -= moveUp * this.itemSize;
+        }
+
+        // protect top from going over viewport
+        var tRect = this.relatedTarget.getBoundingClientRect();
+        top = Math.max(-tRect.top, top);
+
+
         var innerWidth = this.offsetWidth - 16 * 2;
         var left = - innerWidth / 2;
         var label = this.relatedTarget.querySelector('#label');
