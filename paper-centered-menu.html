@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <paper-centered-menu-overlay relatedTarget="{{$.display}}" id="overlay" opened="{{opened}}" on-core-transitionend="{{transitionEndAction}}">
+    <paper-centered-menu-overlay maxItems="{{maxItems}}" relatedTarget="{{$.display}}" id="overlay" opened="{{opened}}" on-core-transitionend="{{transitionEndAction}}">
 
       <paper-shadow id="shadow" z="0" target="{{$.overlay}}"></paper-shadow>
 
@@ -49,9 +49,19 @@
     Polymer({
 
       publish: {
-        opened: false,
-        selected: 0,
-        selectedItem: null
+        opened: {
+          value: false,
+          reflect: true
+        },
+        selected: {
+          value: 0,
+          reflect: true
+        },
+        selectedItem: {
+          value: null,
+          reflect: true
+        },
+        maxItems: 4
       },
 
       tap: function () {

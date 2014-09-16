@@ -43,33 +43,12 @@
 
 
       positionTarget: function () {
-
         if (!this.relatedTarget) {
           this.super();
           return;
         }
 
-
-        var t_op = this.target.offsetParent;
-        var r_op = this.relatedTarget.offsetParent;
-        if (window.ShadowDOMPolyfill) {
-          t_op = wrap(t_op);
-          r_op = wrap(r_op);
-        }
-
-        if (t_op !== r_op && t_op !== this.relatedTarget) {
-          console.warn('core-dropdown-overlay: dropdown\'s offsetParent must be the relatedTarget or the relatedTarget\'s offsetParent!');
-        }
-
-
-        var inside = t_op === this.relatedTarget;
-        var ref = this.relatedTarget.getBoundingClientRect();
-
-
-        var top = 0;
-        top -= Math.floor((this.maxItems - 1) / 2) * this.itemSize;
-        top -= 8; // padding
-
+        var top = -(Math.floor((this.maxItems - 1) / 2) * this.itemSize + 8);
 
         var innerWidth = this.offsetWidth - 16 * 2;
         var left = - innerWidth / 2;
