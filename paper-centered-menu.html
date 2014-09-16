@@ -4,6 +4,7 @@
 <link href="../core-icons/core-icons.html" rel="import">
 <link href="../core-style/core-style.html" rel="import">
 <link href="../core-menu/core-menu.html" rel="import">
+<link href="../core-a11y-keys/core-a11y-keys.html" rel="import">
 
 <link href="../paper-focusable/paper-focusable.html" rel="import">
 <link href="../paper-shadow/paper-shadow.html" rel="import">
@@ -14,6 +15,7 @@
 <polymer-element name="paper-centered-menu" extends="paper-focusable">
   <template>
     <link href="paper-centered-menu.css" rel="stylesheet">
+    <core-a11y-keys id="a11y" keys="/[a-z0-9]/" on-keys-pressed="{{keyPress}}" target="{{}}"></core-a11y-keys>
 
     <div id="display" layout horizontal center>
       <div relative>
@@ -91,6 +93,10 @@
         if (this.opened) {
           this.opened = false;
         }
+      },
+
+      keyPress: function () {
+        console.log(arguments);
       }
     });
   </script>

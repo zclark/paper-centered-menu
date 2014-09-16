@@ -23,6 +23,7 @@
     "paper-item": "Polymer/paper-item#master",
     "paper-shadow": "Polymer/paper-shadow#master",
     "core-transition": "Polymer/core-transition#master",
-    "core-animation": "Polymer/core-animation#master"
+    "core-animation": "Polymer/core-animation#master",
+    "core-a11y-keys": "Polymer/core-a11y-keys#master"
   }
 }

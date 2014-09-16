@@ -55,7 +55,7 @@
           var length = items.length;
 
           var itemDuration = 1000;
-          var extraRendered = Math.ceil(node.maxItems / 2);
+          var extraRendered = node.maxItems - 1;
           var itemDelay = 1 / extraRendered;
 
           for (var i = 1; i <= extraRendered; i += 1) {
