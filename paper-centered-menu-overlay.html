@@ -23,7 +23,6 @@
       measureTarget: function() {
         var sizer = this.sizingTarget || this.target;
 
-        /* position offscreen if we're auto-positioning to get the natural width and height of the dropdown */
         sizer.style.position = 'absolute';
         sizer.style.left = '-99999px';
         sizer.style.top = '-99999px';
@@ -48,16 +47,33 @@
           return;
         }
 
-        var top = -(Math.floor((this.maxItems - 1) / 2) * this.itemSize + 8);
+        var menu = this.querySelector('#menu');
+        var itemCount = menu.items.length;
+        var overflowItems = this.maxItems - 1;
+        var overflowAbove = Math.floor(overflowItems / 2);
+
+        var maxAdditional = Math.min(
+          Math.floor(itemCount / 2),
+          Math.floor((this.maxItems) / 2)
+        );
+
+        var selected = menu.selected;
+        var countAbove = Math.min(selected, maxAdditional, overflowAbove || 1);
+        var top = -(countAbove * this.itemSize + 8);
 
         var innerWidth = this.offsetWidth - 16 * 2;
         var left = - innerWidth / 2;
         var label = this.relatedTarget.querySelector('#label');
         left += label.offsetWidth / 2;
 
-        var t_style = this.target.style;
-        t_style.top = top + 'px';
-        t_style.left = left + 'px';
+        var targetStyle = this.target.style;
+        targetStyle.top = top + 'px';
+        targetStyle.left = left + 'px';
+
+
+        var container = this.querySelector('.menu-container');
+        var scrollTop = Math.max((selected - countAbove) * this.itemSize, 0);
+        container.scrollTop = scrollTop;
       },
 
 

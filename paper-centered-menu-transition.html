@@ -54,8 +54,6 @@
           var items = menu.items;
           var length = items.length;
 
-          this.updateScroll(node, selected);
-
           var itemDuration = 1000;
           var extraRendered = Math.ceil(node.maxItems / 2);
           var itemDelay = 1 / extraRendered;
@@ -85,13 +83,6 @@
             this.fire('core-transitionend', this, node);
           }.bind(this));
         }
-      },
-
-
-      updateScroll: function (node, index) {
-        var container = node.querySelector('.menu-container');
-        var scrollTop = Math.max((index - 1) * node.itemSize, 0);
-        container.scrollTop = scrollTop;
       },
 
 
