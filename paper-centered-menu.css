@@ -41,6 +41,7 @@
 
 ::content paper-item {
   min-width: 112px;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
