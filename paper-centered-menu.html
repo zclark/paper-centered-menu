@@ -33,7 +33,7 @@
     <link href="paper-centered-menu.css" rel="stylesheet">
     <core-style ref="paper-centered-menu"></core-style>
 
-    <core-a11y-keys id="a11y" keys="/[a-z0-9]/" on-keys-pressed="{{keyPress}}" target="{{}}"></core-a11y-keys>
+    <core-a11y-keys id="a11y" keys="up down" on-keys-pressed="{{keyPress}}" target="{{}}"></core-a11y-keys>
 
     <div id="display" layout horizontal center>
       <div relative>
@@ -116,8 +116,20 @@
         }
       },
 
-      keyPress: function () {
-        console.log(arguments);
+      keyPress: function (evt, detail) {
+        var key = detail.key;
+        var menu = this.$.menu;
+
+        switch(key) {
+          case 'up':
+            menu.selected-= 1;
+            break;
+          case 'down':
+            menu.selected += 1;
+            break;
+        }
+
+        menu.selected = Math.min(Math.max(menu.selected, 0), menu.items.length - 1);
       }
     });
   }());

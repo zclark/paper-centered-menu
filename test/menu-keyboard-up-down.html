@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>menu-keyboard-up-down</title>
+
+  <script src="../platform/platform.js"></script>
+  <link href="../polymer-test-tools/tools.html" rel="import">
+  <script src="../polymer-test-tools/htmltest.js"></script>
+
+  <link href="../paper-centered-menu.html" rel="import">
+  <link href="../paper-item/paper-item.html" rel="import">
+</head>
+<body>
+
+  <paper-centered-menu>
+    <paper-item label="test0" value="test0"></paper-item>
+    <paper-item label="test1" value="test1"></paper-item>
+    <paper-item label="test2" value="test2"></paper-item>
+    <paper-item label="test3" value="test3"></paper-item>
+    <paper-item label="test4" value="test4"></paper-item>
+    <paper-item label="test5" value="test5"></paper-item>
+    <paper-item label="test6" value="test6"></paper-item>
+  </paper-centered-menu>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+
+      var el = document.querySelector('paper-centered-menu');
+      var a11y = el.shadowRoot.querySelector('#a11y');
+      var label = el.shadowRoot.querySelector('#label');
+      el.focus();
+
+      var keyUp = function (count) {
+        for (var i = 0 ; i < count; i += 1) {
+          a11y.fire('keys-pressed', { key: 'up' });
+        }
+      };
+
+      var keyDown = function (count) {
+        for (var i = 0 ; i < count; i += 1) {
+          a11y.fire('keys-pressed', { key: 'down' });
+        }
+      };
+
+
+      setTimeout(function () {
+        assert.equal(label.innerHTML, 'test0');
+
+        keyDown(1);
+        setTimeout(function () {
+          assert.equal(label.innerHTML, 'test1');
+          done();
+
+          keyUp(2);
+          setTimeout(function () {
+            assert.equal(label.innerHTML, 'test0');
+            done();
+          });
+
+          keyDown(100);
+          setTimeout(function () {
+            assert.equal(label.innerHTML, 'test6');
+          })
+        });
+      });
+    });
+
+  </script>
+
+</body>
+</html>
