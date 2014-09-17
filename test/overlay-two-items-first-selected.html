@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>overlay-two-items-first-selected</title>
+
+  <script src="../platform/platform.js"></script>
+  <link href="../polymer-test-tools/tools.html" rel="import">
+  <script src="../polymer-test-tools/htmltest.js"></script>
+
+  <link href="../paper-centered-menu-overlay.html" rel="import">
+  <link href="../core-menu/core-menu.html" rel="import">
+  <link href="../paper-item/paper-item.html" rel="import">
+</head>
+<body>
+
+  <div id="target" style="position: absolute; top: 200px; bottom: 200px;">
+    <div id="label" style="width: 100px;"></div>
+  </div>
+
+  <paper-centered-menu-overlay>
+    <div class="menu-container">
+      <core-menu id="menu" selectedIndex="0">
+        <paper-item label="fake" value="test0"></paper-item>
+        <paper-item label="fake" value="test1"></paper-item>
+      </core-menu>
+    </div>
+  </paper-centered-menu-overlay>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      var el = document.querySelector('paper-centered-menu-overlay');
+      el.relatedTarget = document.querySelector('#target');
+
+      el.opened = true;
+
+      setTimeout(function () {
+        assert.equal(el.style.top, '-8px',
+          'top should only extend enough for the padding');
+        done();
+      });
+    });
+
+  </script>
+
+</body>
+</html>

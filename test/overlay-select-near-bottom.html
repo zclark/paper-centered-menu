@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>overlay-select-near-bottom</title>
+
+  <script src="../platform/platform.js"></script>
+  <link href="../polymer-test-tools/tools.html" rel="import">
+  <script src="../polymer-test-tools/htmltest.js"></script>
+
+  <link href="../paper-centered-menu-overlay.html" rel="import">
+  <link href="../core-menu/core-menu.html" rel="import">
+  <link href="../paper-item/paper-item.html" rel="import">
+</head>
+<body>
+
+  <div id="target" style="position: absolute; top: 200px; bottom: 200px;">
+    <div id="label" style="width: 100px;"></div>
+  </div>
+
+  <paper-centered-menu-overlay maxItems="4">
+    <div class="menu-container">
+      <core-menu id="menu" selectedIndex="5">
+        <paper-item label="fake" value="test0"></paper-item>
+        <paper-item label="fake" value="test1"></paper-item>
+        <paper-item label="fake" value="test2"></paper-item>
+        <paper-item label="fake" value="test3"></paper-item>
+        <paper-item label="fake" value="test4"></paper-item>
+        <paper-item label="fake" value="test5"></paper-item>
+        <paper-item label="fake" value="test6"></paper-item>
+      </core-menu>
+    </div>
+  </paper-centered-menu-overlay>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      var el = document.querySelector('paper-centered-menu-overlay');
+      var menu = document.querySelector('#menu');
+      el.relatedTarget = document.querySelector('#target');
+
+      el.opened = true;
+
+      setTimeout(function () {
+        assert.equal(el.style.top, '-104px',
+          'top should equal 2 item + top padding');
+
+        menu.selectedIndex = 6;
+        el.positionTarget();
+        assert.equal(el.style.top, '-152px',
+          'top should equal 3 items + top padding');
+
+        done();
+      });
+    });
+
+  </script>
+
+</body>
+</html>

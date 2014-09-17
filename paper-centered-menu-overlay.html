@@ -58,20 +58,20 @@
           Math.floor((this.maxItems) / 2)
         );
 
-        var selected = menu.selected;
-        var countAbove = Math.min(selected, maxAdditional, overflowAbove || 1);
-        // Assign in here so the transition can access w/o more calc
-        this.countAbove = countAbove;
-
-        var top = -(countAbove * this.itemSize + 8);
+        var selected = menu.selectedIndex;
+        var countAbove = Math.min(selected, maxAdditional, overflowAbove);
 
 
         // update top in the case that we have selected near the end of the menu
         if (selected >= itemCount - maxAdditional) {
           var distanceFromEnd = itemCount - (selected + 1);
-          var moveUp = maxAdditional - distanceFromEnd;
-          top -= moveUp * this.itemSize;
+          var moveUp = (this.maxItems - 1) - distanceFromEnd;
+          countAbove = moveUp;
         }
+
+        // Assign in here so the transition can access w/o more calc
+        this.countAbove = countAbove;
+        var top = -(countAbove * this.itemSize + 8);
 
         // protect top from going over viewport
         var tRect = this.relatedTarget.getBoundingClientRect();
@@ -92,8 +92,9 @@
       sizeTarget: function () {
         var sizer = this.sizingTarget || this.target;
 
+        var itemCount = this.querySelector('#menu').items.length;
         sizer.style.width = this._naturalSize.width + 'px';
-        sizer.style.height = (this.itemSize * this.maxItems + 16) + 'px';
+        sizer.style.height = (Math.min(itemCount, this.maxItems) * this.itemSize + 16) + 'px';
 
         this.super();
       }

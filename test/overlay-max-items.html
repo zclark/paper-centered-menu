@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>overlay-max-items</title>
+
+  <script src="../platform/platform.js"></script>
+  <link href="../polymer-test-tools/tools.html" rel="import">
+  <script src="../polymer-test-tools/htmltest.js"></script>
+
+  <link href="../paper-centered-menu-overlay.html" rel="import">
+  <link href="../core-menu/core-menu.html" rel="import">
+  <link href="../paper-item/paper-item.html" rel="import">
+</head>
+<body>
+
+  <div id="target" style="position: absolute; top: 200px; bottom: 200px;">
+    <div id="label" style="width: 100px;"></div>
+  </div>
+
+  <paper-centered-menu-overlay maxItems="4">
+    <div class="menu-container">
+      <core-menu id="menu" selectedIndex="1">
+        <paper-item label="fake" value="test0"></paper-item>
+        <paper-item label="fake" value="test1"></paper-item>
+        <paper-item label="fake" value="test2"></paper-item>
+        <paper-item label="fake" value="test3"></paper-item>
+        <paper-item label="fake" value="test4"></paper-item>
+        <paper-item label="fake" value="test5"></paper-item>
+        <paper-item label="fake" value="test6"></paper-item>
+      </core-menu>
+    </div>
+  </paper-centered-menu-overlay>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      var topPad = 8;
+      var bottomPad = 8;
+      var itemSize = 48;
+
+      var el = document.querySelector('paper-centered-menu-overlay');
+      var menu = document.querySelector('#menu');
+      el.relatedTarget = document.querySelector('#target');
+
+      el.opened = true;
+
+      setTimeout(function () {
+        assert.equal(el.style.height, (4 * itemSize + topPad + bottomPad) + 'px',
+          'restrict height to maxItems + 8px top and bottom padding');
+
+        assert.equal(el.style.top, -(itemSize + topPad) + 'px',
+          'render 1 above when second item selected and maxItems > 2');
+
+        menu.selectedIndex = 0;
+        el.positionTarget();
+        assert.equal(el.style.top, -topPad + 'px',
+          'render 3 below with first item selected and maxItems = 4');
+
+        menu.selectedIndex = 2;
+        el.positionTarget();
+        assert.equal(el.style.top, -(itemSize + topPad) + 'px',
+          'render only 1 above when maxItems is 4 and more than 1 above available');
+
+        el.maxItems = 8;
+        el.sizeTarget();
+        assert.equal(el.style.height, (7 * itemSize + topPad + bottomPad) + 'px',
+          'max items should only limit - size should still be 7 when max is 8 and count is 7');
+
+        done();
+      });
+    });
+
+  </script>
+
+</body>
+</html>

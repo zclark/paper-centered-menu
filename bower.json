@@ -24,6 +24,7 @@
     "paper-shadow": "Polymer/paper-shadow#master",
     "core-transition": "Polymer/core-transition#master",
     "core-animation": "Polymer/core-animation#master",
-    "core-a11y-keys": "Polymer/core-a11y-keys#master"
+    "core-a11y-keys": "Polymer/core-a11y-keys#master",
+    "polymer-test-tools": "Polymer/polymer-test-tools#master"
   }
 }
