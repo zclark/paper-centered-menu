@@ -12,9 +12,27 @@
 
 <link href="paper-centered-menu-overlay.html" rel="import">
 
+<core-style id="paper-centered-menu">
+#focusedUnderline {
+  background-color: {{g.paperCenteredMenu.focusedColor}}
+}
+</core-style>
+
+<script>
+  (function() {
+
+    CoreStyle.g.paperCenteredMenu = CoreStyle.g.paperCenteredMenu || {
+      'focusedColor': '#4059a9'
+    };
+
+  }());
+</script>
+
 <polymer-element name="paper-centered-menu" extends="paper-focusable">
   <template>
     <link href="paper-centered-menu.css" rel="stylesheet">
+    <core-style ref="paper-centered-menu"></core-style>
+
     <core-a11y-keys id="a11y" keys="/[a-z0-9]/" on-keys-pressed="{{keyPress}}" target="{{}}"></core-a11y-keys>
 
     <div id="display" layout horizontal center>
@@ -48,6 +66,9 @@
     </paper-centered-menu-overlay>
   </template>
   <script>
+  (function () {
+    'use strict';
+
     Polymer({
 
       publish: {
@@ -99,5 +120,6 @@
         console.log(arguments);
       }
     });
+  }());
   </script>
 </polymer-element>
