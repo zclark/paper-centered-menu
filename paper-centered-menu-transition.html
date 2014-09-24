@@ -28,7 +28,6 @@
           var anims = [];
 
           var size = node.getBoundingClientRect();
-
           var left = -(node.offsetLeft);
 
           var initialTop = Math.floor((node.maxItems - 1) / 2) * node.itemSize + 8;
@@ -52,19 +51,16 @@
           var menu = node.querySelector('#menu');
           var selected = menu.selected;
           var items = menu.items;
-          var length = items.length;
-
           var itemDuration = 1000;
-          var extraRendered = node.maxItems - 1;
-          var itemDelay = 1 / extraRendered;
+          var countBelow = node.maxItems - node.countAbove - 1;
+          var itemDelay = 1 / Math.max(node.countAbove, countBelow);
 
-          for (var i = 0; i < node.countAbove; i += 1) {
+          for (var i = 1; i <= node.countAbove; i += 1) {
             anims.push(this.createItemAnimation(items[selected - i],
               this.duration, itemDelay * i * this.duration));
           }
 
-          var countBelow = node.maxItems - node.countAbove - 1;
-          for (var j = 0; j < countBelow; j += 1) {
+          for (var j = 1; j <= countBelow; j += 1) {
             anims.push(this.createItemAnimation(items[selected + j],
                 this.duration, itemDelay * j * this.duration));
           }
