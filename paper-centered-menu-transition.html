@@ -34,12 +34,12 @@
           var bg = node.querySelector('.paper-centered-menu-overlay-bg');
           anims.push(new Animation(bg, [{
             'opacity': 0.9,
-            'top': initialTop + 'px',
+            'transform': 'translate3d(0,' + initialTop + 'px,0)',
             'height': node.itemSize + 'px',
             'left': left + 'px'
           }, {
             'opacity': 1.0,
-            'top': 0,
+            'transform': 'translate3d(0,0,0)',
             'height': size.height + 'px',
             'left': 0
           }], {
