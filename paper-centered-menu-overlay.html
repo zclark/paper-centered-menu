@@ -60,7 +60,8 @@
 
         var selected = menu.selectedIndex;
         var countAbove = Math.min(selected, maxAdditional, overflowAbove);
-
+        var menuRect = menu.getBoundingClientRect();
+        var topMenuPadding = menuRect.height % this.itemSize / 2;
 
         // update top in the case that we have selected near the end of the menu
         if (selected >= itemCount - maxAdditional) {
@@ -71,13 +72,13 @@
 
         // Assign in here so the transition can access w/o more calc
         this.countAbove = countAbove;
-        var top = -(countAbove * this.itemSize + 8);
+        var top = -(countAbove * this.itemSize + topMenuPadding);
 
         // protect top from going over viewport
         var tRect = this.relatedTarget.getBoundingClientRect();
         top = Math.max(-tRect.top, top);
 
-
+        // Assuming contents of menu are always paper-item
         var innerWidth = this.offsetWidth - 16 * 2;
         var left = - innerWidth / 2;
         var label = this.relatedTarget.querySelector('#label');
@@ -92,9 +93,11 @@
       sizeTarget: function () {
         var sizer = this.sizingTarget || this.target;
 
-        var itemCount = this.querySelector('#menu').items.length;
+        var menu = this.querySelector('#menu');
+        var itemCount = menu.items.length;
+        var padding = menu.getBoundingClientRect().height % this.itemSize;
         sizer.style.width = this._naturalSize.width + 'px';
-        sizer.style.height = (Math.min(itemCount, this.maxItems) * this.itemSize + 16) + 'px';
+        sizer.style.height = (Math.min(itemCount, this.maxItems) * this.itemSize + padding) + 'px';
 
         this.super();
       }

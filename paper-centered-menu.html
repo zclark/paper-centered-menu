@@ -87,17 +87,6 @@
         maxItems: 4
       },
 
-      tap: function () {
-        if (this.disabled) {
-          return;
-        }
-
-        this.toggleDropdown();
-        if (this.$.overlay.opened) {
-          this.$.shadow.z = 0;
-        }
-      },
-
       transitionEndAction: function () {
         this.$.shadow.z = 1;
       },
@@ -107,7 +96,14 @@
       },
 
       rippleEnd: function () {
-        this.tap();
+        if (this.disabled) {
+          return;
+        }
+
+        this.toggleDropdown();
+        if (this.$.overlay.opened) {
+          this.$.shadow.z = 0;
+        }
       },
 
       selectAction: function () {
@@ -129,7 +125,9 @@
             break;
         }
 
-        menu.selected = Math.min(Math.max(menu.selected, 0), menu.items.length - 1);
+        menu.selected = Math.min(
+          Math.max(menu.selected, 0),
+          menu.items.length - 1);
       }
     });
   }());

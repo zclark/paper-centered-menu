@@ -29,28 +29,31 @@
 
           var size = node.getBoundingClientRect();
           var left = -(node.offsetLeft);
+          var menu = node.querySelector('#menu');
+          var items = menu.items;
 
-          var initialTop = node.countAbove * node.itemSize + 8;
+          var initialScaleY = node.itemSize / size.height;
+          var initialScaleX = (size.width + node.offsetLeft) / size.width;
+
+          var menuRect = menu.getBoundingClientRect();
+          var topMenuPadding = menuRect.height % node.itemSize / 2;
+
+          var initialTop = node.countAbove * node.itemSize + topMenuPadding;
           var bg = node.querySelector('.paper-centered-menu-overlay-bg');
           anims.push(new Animation(bg, [{
-            'opacity': 0.9,
-            'transform': 'translate3d(0,' + initialTop + 'px,0)',
-            'height': node.itemSize + 'px',
-            'left': left + 'px'
+            opacity: 0.9,
+            transform: 'translate3d(0,' + initialTop + 'px,0) scale(' +
+              initialScaleX + ',' + initialScaleY + ')'
           }, {
-            'opacity': 1.0,
-            'transform': 'translate3d(0,0,0)',
-            'height': size.height + 'px',
-            'left': 0
+            opacity: 1.0,
+            transform: 'translate3d(0,0,0) scale(1)'
           }], {
             duration: this.duration,
             fill: 'forwards'
           }));
 
 
-          var menu = node.querySelector('#menu');
           var selected = menu.selected;
-          var items = menu.items;
           var itemDuration = 1000;
           var countBelow = node.maxItems - node.countAbove - 1;
           var itemDelay = 1 / Math.max(node.countAbove, countBelow);
@@ -76,7 +79,9 @@
 
 
           var container = node.querySelector('.menu-container');
-          var scrollTop = Math.max((menu.selected - node.countAbove) * node.itemSize, 0);
+          var scrollTop = Math.max(
+            (menu.selected - node.countAbove) * node.itemSize,
+            0);
           container.scrollTop = scrollTop;
 
         } else {
