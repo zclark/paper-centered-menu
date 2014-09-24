@@ -30,7 +30,7 @@
           var size = node.getBoundingClientRect();
           var left = -(node.offsetLeft);
 
-          var initialTop = Math.floor((node.maxItems - 1) / 2) * node.itemSize + 8;
+          var initialTop = node.countAbove * node.itemSize + 8;
           var bg = node.querySelector('.paper-centered-menu-overlay-bg');
           anims.push(new Animation(bg, [{
             'opacity': 0.9,
