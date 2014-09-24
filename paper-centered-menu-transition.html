@@ -58,15 +58,15 @@
           var extraRendered = node.maxItems - 1;
           var itemDelay = 1 / extraRendered;
 
-          for (var i = 1; i <= extraRendered; i += 1) {
-            if (selected - i >= 0) {
-              anims.push(this.createItemAnimation(items[selected - i],
-                this.duration, itemDelay * i * this.duration));
-            }
-            if (selected + i < length - 1) {
-              anims.push(this.createItemAnimation(items[selected + i],
-                this.duration, itemDelay * i * this.duration));
-            }
+          for (var i = 0; i < node.countAbove; i += 1) {
+            anims.push(this.createItemAnimation(items[selected - i],
+              this.duration, itemDelay * i * this.duration));
+          }
+
+          var countBelow = node.maxItems - node.countAbove - 1;
+          for (var j = 0; j < countBelow; j += 1) {
+            anims.push(this.createItemAnimation(items[selected + j],
+                this.duration, itemDelay * j * this.duration));
           }
 
 
