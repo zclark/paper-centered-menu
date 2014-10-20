@@ -9,7 +9,6 @@
 
       publish: {
         relatedTarget: null,
-        itemSize: 48,
         maxItems: 4,
         transition: 'paper-centered-menu-transition'
       },
@@ -27,6 +26,10 @@
         var overflowItems = this.maxItems - 1;
         var overflowAbove = Math.floor(overflowItems / 2);
 
+        var firstItem = menu.items[0];
+        var firstItemRect = firstItem && firstItem.getBoundingClientRect();
+        var itemHeight = firstItemRect ? firstItemRect.height : 0;
+
         var maxAdditional = Math.min(
           Math.floor(itemCount / 2),
           Math.floor((this.maxItems) / 2)
@@ -35,7 +38,7 @@
         var selected = menu.selectedIndex;
         var countAbove = Math.min(selected, maxAdditional, overflowAbove);
         var menuRect = menu.getBoundingClientRect();
-        var topMenuPadding = menuRect.height % this.itemSize / 2;
+        var topMenuPadding = menuRect.height % itemHeight / 2;
 
         // update top in the case that we have selected near the end of the menu
         if (selected >= itemCount - maxAdditional) {
@@ -46,14 +49,16 @@
 
         // Assign in here so the transition can access w/o more calc
         this.countAbove = countAbove;
-        var top = -(countAbove * this.itemSize + topMenuPadding);
+        var top = -(countAbove * itemHeight + topMenuPadding);
 
         // protect top from going over viewport
         var tRect = this.relatedTarget.getBoundingClientRect();
         top = Math.max(-tRect.top, top);
 
-        // Assuming contents of menu are always paper-item
-        var innerWidth = this.offsetWidth - 16 * 2;
+        var itemPadding = getComputedStyle(firstItem).paddingLeft;
+        var itemPaddingPx = itemPadding.substr(0, itemPadding.length - 2);
+
+        var innerWidth = firstItemRect.width - itemPaddingPx * 2;
         var left = - innerWidth / 2;
         var label = this.relatedTarget.querySelector('#label');
         left += label.offsetWidth / 2;
@@ -69,8 +74,11 @@
 
         var menu = this.querySelector('#menu');
         var itemCount = menu.items.length;
-        var padding = menu.getBoundingClientRect().height % this.itemSize;
-        sizer.style.height = (Math.min(itemCount, this.maxItems) * this.itemSize + padding) + 'px';
+        var itemHeight = menu.items.length
+          ? menu.items[0].getBoundingClientRect().height
+          : 0;
+        var padding = menu.getBoundingClientRect().height % itemHeight;
+        sizer.style.height = (Math.min(itemCount, this.maxItems) * itemHeight + padding) + 'px';
 
         this.super();
       }

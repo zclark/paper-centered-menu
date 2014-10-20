@@ -32,13 +32,17 @@
           var menu = node.querySelector('#menu');
           var items = menu.items;
 
-          var initialScaleY = node.itemSize / size.height;
+          var itemHeight = menu.items.length
+            ? menu.items[0].getBoundingClientRect().height
+            : 0;
+
+          var initialScaleY = itemHeight / size.height;
           var initialScaleX = (size.width + node.offsetLeft) / size.width;
 
           var menuRect = menu.getBoundingClientRect();
-          var topMenuPadding = menuRect.height % node.itemSize / 2;
+          var topMenuPadding = menuRect.height % itemHeight / 2;
 
-          var initialTop = node.countAbove * node.itemSize + topMenuPadding;
+          var initialTop = node.countAbove * itemHeight + topMenuPadding;
           var bg = node.querySelector('.paper-centered-menu-overlay-bg');
           anims.push(new Animation(bg, [{
             opacity: 0.9,
@@ -80,7 +84,7 @@
 
           var container = node.querySelector('.menu-container');
           var scrollTop = Math.max(
-            (menu.selected - node.countAbove) * node.itemSize,
+            (menu.selected - node.countAbove) * itemHeight,
             0);
           container.scrollTop = scrollTop;
 
